@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: child-service
+  labels:
+    app: child-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: child-service
+  template:
+    metadata:
+      labels:
+        app: child-service
+    spec:
+      containers:
+        - name: child-service
+          image: your-dockerhub-username/child-service:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 30

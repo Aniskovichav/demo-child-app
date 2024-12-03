@@ -18,11 +18,11 @@ public class ChildService {
     public List<ChildDTO> getAllChildren() {
         return childRepository.findAll()
                 .stream()
-                .map(child -> new ChildDTO(child.getId(), child.getName(), child.getAge()))//TODO (this::convertToDTO)
+                .map(this::convertToDTO)//TODO (child -> new ChildDTO(child.getId(), child.getName(), child.getAge()))
                 .collect(Collectors.toList());
     }
 
-    public ChildDTO getChildById(Long id) {
+    public ChildDTO getChildById(long id) {
         return childRepository.findById(id)
                 .map(this::convertToDTO)
                 .orElseThrow(() -> new RuntimeException("Child not found"));
@@ -33,7 +33,7 @@ public class ChildService {
         return convertToDTO(childRepository.save(child));
     }
 
-    public ChildDTO updateChild(Long id, ChildDTO childDTO) {
+    public ChildDTO updateChild(long id, ChildDTO childDTO) {
         Child child = childRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Child not found"));
         child.setName(childDTO.getName());
@@ -41,7 +41,7 @@ public class ChildService {
         return convertToDTO(childRepository.save(child));
     }
 
-    public void deleteChild(Long id) {
+    public void deleteChild(long id) {
         childRepository.deleteById(id);
     }
 

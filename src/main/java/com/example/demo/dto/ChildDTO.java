@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChildDTO {
-    private Long id;
+    private long id;
     private String name;
     private int age;
 }

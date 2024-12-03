@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Aniskovich (generated)
+      changes:
+        - createTable:
+            tableName: child
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: age
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: parent_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+  - changeSet:
+      id: 2
+      author: Aniskovich (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: child
+            baseColumnNames: parent_id
+            referencedTableName: parent
+            referencedColumnNames: id
+            constraintName: fk_child_parent

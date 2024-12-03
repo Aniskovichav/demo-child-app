@@ -53,7 +53,7 @@ public class ChildView extends VerticalLayout {
                 String name = nameField.getValue();
                 Integer age = Integer.parseInt(ageField.getValue());
 
-                Child child = new Child();
+                Child child = new Child(childDTO.getId(), childDTO.getName(), childDTO.getAge());
                 child.setName(name);
                 child.setAge(age);
 

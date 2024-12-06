@@ -1,0 +1,65 @@
+version: "3.9"
+services:
+  keycloak:
+    build:
+      context: .
+      dockerfile: ./docker/keycloak.Dockerfile
+    container_name: keycloak
+    ports:
+      - "8080:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - app-network
+    volumes:
+      - ./create-realm.sh:/opt/jboss/tools/create-realm.sh
+    command:
+      - start-dev
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
+  mysql:
+    build:
+      context: .
+      dockerfile: ./docker/mysql.Dockerfile
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: family
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    networks:
+      - app-network
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+  ldap:
+    build:
+      context: .
+      dockerfile: ./docker/ldap.Dockerfile
+    container_name: ldap
+    ports:
+      - "389:389"
+    environment:
+      LDAP_ORGANISATION: Example Organization
+      LDAP_DOMAIN: example.com
+      LDAP_ADMIN_PASSWORD: admin
+    networks:
+      - app-network
+    volumes:
+      - ldap_data:/var/lib/ldap
+      - ldap_config:/etc/ldap/slapd.d
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  ldap_data:
+  ldap_config:

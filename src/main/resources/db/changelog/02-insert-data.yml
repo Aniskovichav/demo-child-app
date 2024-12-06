@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: user
+      changes:
+        - insert:
+            tableName: child
+            columns:
+              - column:
+                  name: name
+                  value: Alice
+              - column:
+                  name: age
+                  value: 18
+        - insert:
+            tableName: child
+            columns:
+              - column:
+                  name: name
+                  value: Bob
+              - column:
+                  name: age
+                  value: 19

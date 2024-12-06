@@ -1,4 +1,28 @@
+server:
+  port: 8081
+
+keycloak:
+  realm: family
+  auth-server-url: http://localhost:8080/auth
+  resource: family-app
+  public-client: true
+  ssl-required: external
+
 spring:
+  application:
+    name: child-app
+  datasource:
+    url: jdbc:mysql://localhost:3306/family
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yml
   security:
     endpoints:
       public: /api/v1/public/**
@@ -8,28 +32,12 @@ spring:
         jwt:
           issuer-uri: http://localhost:8080/realms/myrealm
           jwk-set-uri: http://localhost:8080/realms/myrealm/protocol/openid-connect/certs
-  datasource:
-    url: jdbc:mysql://localhost:3306/family
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: true
-  liquibase:
-    change-log: classpath:/db/changelog/db.changelog-master.yaml
+
+rest:
+  template:
+    rootUrl: http://localhost:8081
+
+vaadin:
+  launch-browser: true
 
 
-keycloak:
-  realm: family
-  auth-server-url: http://localhost:8080/auth
-  resource: family-app
-  public-client: true
-  ssl-required: external
-
-server:
-  port: 8080
-
-#server:
-#  port: 8081

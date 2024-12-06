@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: Aniskovich (generated)
+      author: user
       changes:
         - createTable:
             tableName: child
@@ -23,18 +23,3 @@ databaseChangeLog:
                   type: INT
                   constraints:
                     nullable: false
-              - column:
-                  name: parent_id
-                  type: BIGINT
-                  constraints:
-                    nullable: true
-  - changeSet:
-      id: 2
-      author: Aniskovich (generated)
-      changes:
-        - addForeignKeyConstraint:
-            baseTableName: child
-            baseColumnNames: parent_id
-            referencedTableName: parent
-            referencedColumnNames: id
-            constraintName: fk_child_parent

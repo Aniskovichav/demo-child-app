@@ -1,0 +1,36 @@
+# Создание базового дерева для домена
+dn: dc=example,dc=com
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: Example Organization
+dc: example
+
+# Организационная единица для пользователей
+dn: ou=users,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: users
+
+# Организационная единица для ролей
+dn: ou=roles,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: roles
+
+# Пример роли
+dn: cn=admin,ou=roles,dc=example,dc=com
+objectClass: top
+objectClass: groupOfUniqueNames
+cn: admin
+uniqueMember: uid=john.doe,ou=users,dc=example,dc=com
+
+# Пример пользователя
+dn: uid=john.doe,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+cn: John Doe
+sn: Doe
+uid: john.doe
+userPassword: password

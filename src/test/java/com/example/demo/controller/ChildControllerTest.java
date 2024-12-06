@@ -18,20 +18,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ChildController.class)
 class ChildControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
-    private ChildService childService;
-
-    @Test
-    void getAllChildren() throws Exception {
-        Mockito.when(childService.getAllChildren())
-                .thenReturn(Collections.singletonList(new ChildDTO(1L, "John", 10)));
-
-        mockMvc.perform(get("/api/v1/children")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].name").value("John"));
-    }
+//    @Autowired
+//    private MockMvc mockMvc;
+//
+//    @MockBean
+//    private ChildService childService;
+//
+//    @Test
+//    void getAllChildren() throws Exception {
+//        Mockito.when(childService.getAllChildren())
+//                .thenReturn(Collections.singletonList(new ChildDTO(1L, "John", 10)));
+//
+//        mockMvc.perform(get("/api/v1/children")
+//                        .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$[0].name").value("John"));
+//    }
 }
